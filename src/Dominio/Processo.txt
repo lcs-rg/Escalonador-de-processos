@@ -1,0 +1,2 @@
+1, Google, 1, 5
+2, Spotify, 1, 3, DISCO
