@@ -11,6 +11,6 @@ public class Main{
         Scheduler scheduler = new Scheduler();
         listaDeProcessos.addFirst(processo);
         listaDeProcessos.addFirst(processo1);
-        listaDeProcessos.printList();
+        listaDeProcessos.printList(scheduler.contador_ciclos_alta_prioridade);
     }
 }

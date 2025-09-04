@@ -64,5 +64,17 @@ public class ListaDeProcessos {
             atual = atual.next;
         }while(atual != tail.next);
     }
-
+    @Override
+    public String toString(){
+        if(isEmpty()){
+            return "Lista Vazia";
+        }
+        StringBuilder sb = new StringBuilder();
+        Node atual = tail.next;
+        do{
+            sb.append(atual.processo).append("\n");
+            atual = atual.next;
+        }while(atual != tail.next);
+        return sb.toString();
+    }
 }
