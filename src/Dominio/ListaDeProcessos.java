@@ -1,79 +1,68 @@
 package Dominio;
 
 import Dominio.Node;
-public class ListaDeProcessos{
-    public Node head;
+
+public class ListaDeProcessos {
     public Node tail;
-    public int size;
+    private int size;
     public ListaDeProcessos(){
-        this.head = null;
         this.tail = null;
         this.size = 0;
     }
+    public int size(){
+        return this.size;
+    }
+    public Boolean isEmpty(){
+        return tail == null;
+    }
+    public void addFirst(Processo processo){
+        Node novo = new Node(processo);
+        if(isEmpty()){
+            tail = novo;
+        }
+            novo.next = tail.next;
+            tail.next = novo;
+
+        size++;
+    }
     public void addLast(Processo processo){
         Node novo = new Node(processo);
-        if(head == null){
-            head = novo;
-            tail = head;
+        if(isEmpty()){
+            tail = novo;
+            tail.next = tail;
         }
-        Node temp = head;
-        while (temp.next != null){
-            temp = temp.next;
-        }
-        temp.next = novo;
-        tail = temp.next;
+        novo.next = tail.next;
+        tail.next = novo;
+        tail = novo;
         size++;
-    }
-    public void addFirst(Processo processo) {
-        Node novo = new Node(processo);
-        novo.next = head;
-        head = novo;
-        size++;
-    }
-    public void removeLast(){
-        if(head == null){
-            System.out.println("Lista já vazia");
-            return;
-        }
-        Node temp = head;
-        while (temp.next.next != null){
-            temp = temp.next;
-        }
-        temp.next = null;
-        tail = temp;
-        size--;
     }
     public void removeFirst(){
-        if(head == null){
-            System.out.println("Lista já vazia");
+        if(isEmpty()){
             return;
         }
-        head = head.next;
-        size--;
+        tail.next = tail.next.next;
     }
-    public boolean isEmpty(){
-        return head == null;
-    }
-    public int size(){
-        return size;
-    }
-    public Processo getFirst(){
-        return head.processo;
-    }
-    public Processo getLast(){
-        return tail.processo;
-    }
-    public void clear(){
-        head = null;
+    public void removeLast(){
+        if(isEmpty()){
+            return;
+        }
+        Node atual = tail;
+        Node anterior = tail;
+            do {
+                atual = atual.next;
+            }while(atual != tail.next);
+
     }
     public void printList(){
-        if(head == null){
-            System.out.println("Lista Vazia");
+        Node atual = tail.next;
+        if(isEmpty()){
+            System.out.println("Lista vazia");
+            return;
         }
-        Node temp = head;
-        while (temp != null){
-            System.out.println(temp.processo);
-            temp = temp.next;
-        }
+        do{
+            System.out.println(atual.processo);
+            atual = atual.next;
+        }while(atual != tail.next);
     }
+
 }
