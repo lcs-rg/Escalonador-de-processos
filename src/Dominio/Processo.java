@@ -12,6 +12,24 @@ public class Processo{
         this.ciclos_necessarios = ciclos_necessarios;
         this.recurso_necessario = recurso_necessario;
     }
+    public int getId(){
+        return id;
+    }
+    public int getPrioridade(){
+        return prioridade;
+    }
+    public int getCiclos_necessarios(){
+        return ciclos_necessarios;
+    }
+    public String getNome(){
+        return nome;
+    }
+    public String getRecurso_necessario(){
+        return recurso_necessario;
+    }
+    public void setCiclos_necessarios(int ciclos_necessarios){
+        this.ciclos_necessarios = ciclos_necessarios;
+    }
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder("Processo [");
