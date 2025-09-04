@@ -32,11 +32,13 @@ public class Processo{
     }
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder("Processo [");
-        sb.append(id);
-        sb.append(id);
-        sb.append(id);
-        return "Processo [ID:" + id + ", Nome:" + nome + ", Prioridade:" + prioridade +
-                "Ciclos Necessários:" + ciclos_necessarios + "Recurso Necessário:" + recurso_necessario + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Processo [ID:").append(id);
+        sb.append(", Nome:").append(nome);
+        sb.append(", Prioridade:").append(prioridade);
+        sb.append(", Ciclos necessários:").append(ciclos_necessarios);
+        sb.append(", Recurso necessário:").append(recurso_necessario);
+        sb.append("]");
+        return sb.toString();
     }
 }

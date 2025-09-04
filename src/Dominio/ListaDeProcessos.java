@@ -72,7 +72,7 @@ public class ListaDeProcessos {
         StringBuilder sb = new StringBuilder();
         Node atual = tail.next;
         do{
-            sb.append(atual.processo).append("\n");
+            sb.append(atual.processo.toString()).append("\n");
             atual = atual.next;
         }while(atual != tail.next);
         return sb.toString();
