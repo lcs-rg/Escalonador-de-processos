@@ -33,7 +33,7 @@ public class Processo{
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Processo [ID:").append(id);
+        sb.append(" [ID:").append(id);
         sb.append(", Nome:").append(nome);
         sb.append(", Prioridade:").append(prioridade);
         sb.append(", Ciclos necessários:").append(ciclos_necessarios);

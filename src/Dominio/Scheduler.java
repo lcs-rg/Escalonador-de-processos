@@ -19,10 +19,12 @@ public class Scheduler {
 
     @Override
     public String toString(){
-        return "[" + lista_alta_prioridade + "]" + "\n" +
-                "[" + lista_media_prioridade + "]" + "\n" +
-                "[" + lista_baixa_prioridade + "]" + "\n" +
-                "[" + lista_bloqueados + "]";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Prioridade Alta:").append(lista_alta_prioridade).append("\n");
+        sb.append("Prioridade Media:").append(lista_media_prioridade).append("\n");
+        sb.append("Prioridade Baixa:").append(lista_baixa_prioridade).append("\n");
+        sb.append("Lista de bloqueados:").append(lista_bloqueados);
+        return sb.toString();
     }
     public void addProcesso(Processo processo){
         if (processo.prioridade == 1){
