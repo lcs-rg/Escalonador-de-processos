@@ -35,4 +35,68 @@ public class Scheduler {
     lista_baixa_prioridade.addLast(processo);
         }
     }
+    public void execCiclo() {
+        System.out.println("== Iniciando Ciclo... ==");
+        desbloquearProcesso();
+        Processo atual = selecionarProcesso();
+        if(atual == null){
+            System.out.println("Nenhum processo disponível nesse ciclo");
+            return;
+        }
+        execProcesso(atual);
+
+        System.out.println(this.toString());
+    }
+
+    private void desbloquearProcesso(){
+        if(!lista_bloqueados.isEmpty()){
+            Processo desbloqueado = lista_bloqueados.removeFirst();
+                desbloqueado.bloqueado = false;
+                addProcesso(desbloqueado);
+            System.out.println("Processo desbloquado:" + desbloqueado);
+        }
+    }
+    private Processo selecionarProcesso(){
+        Processo atual = null;
+
+        // controle de fatia de tempo da prioridade alta
+        if(contador_ciclos_alta_prioridade >= 5){
+            if(!lista_media_prioridade.isEmpty()){
+                atual = lista_media_prioridade.removeFirst();
+            } else if(!lista_baixa_prioridade.isEmpty()){
+                atual = lista_baixa_prioridade.removeFirst();
+            }
+            contador_ciclos_alta_prioridade = 0;
+        }
+
+        if(atual == null){
+            if(!lista_alta_prioridade.isEmpty()){
+                atual = lista_alta_prioridade.removeFirst();
+                contador_ciclos_alta_prioridade++;
+            } else if(!lista_media_prioridade.isEmpty()){
+                atual = lista_media_prioridade.removeFirst();
+            } else if(!lista_baixa_prioridade.isEmpty()){
+                atual = lista_baixa_prioridade.removeFirst();
+            }
+        }
+
+        return atual;
+    }
+    private void execProcesso(Processo atual){
+        if("DISCO".equalsIgnoreCase(atual.recurso_necessario) && !atual.bloqueado){
+            atual.bloqueado = true;
+            lista_bloqueados.addLast(atual);
+            System.out.println("Processo " + atual.nome + " foi bloqueado aguardando DISCO");
+            return;
+        }
+
+        atual.ciclos_necessarios--;
+        System.out.println("Executando: " + atual.nome + " | Ciclos restantes: " + atual.ciclos_necessarios);
+
+        if(atual.ciclos_necessarios > 0){
+            addProcesso(atual);
+        } else {
+            System.out.println("Processo " + atual.nome + " foi finalizado com sucesso");
+        }
+    }
 }

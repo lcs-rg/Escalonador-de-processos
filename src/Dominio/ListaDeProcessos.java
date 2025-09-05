@@ -36,22 +36,12 @@ public class ListaDeProcessos {
         tail = novo;
         size++;
     }
-    public void removeFirst(){
+    public Processo removeFirst(){
         if(isEmpty()){
-            return;
+            return null;
         }
         tail.next = tail.next.next;
-    }
-    public void removeLast(){
-        if(isEmpty()){
-            return;
-        }
-        Node atual = tail;
-        Node anterior = tail;
-            do {
-                atual = atual.next;
-            }while(atual != tail.next);
-
+        return tail.next.processo;
     }
     public void printList(){
         Node atual = tail.next;
