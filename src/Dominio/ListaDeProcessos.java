@@ -1,7 +1,5 @@
 package Dominio;
 
-import Dominio.Node;
-
 public class ListaDeProcessos {
     public Node tail;
     private int size;
@@ -15,33 +13,31 @@ public class ListaDeProcessos {
     public Boolean isEmpty(){
         return tail == null;
     }
-    public void addFirst(Processo processo){
-        Node novo = new Node(processo);
-        if(isEmpty()){
-            tail = novo;
-        }
-            novo.next = tail.next;
-            tail.next = novo;
 
-        size++;
-    }
     public void addLast(Processo processo){
         Node novo = new Node(processo);
         if(isEmpty()){
             tail = novo;
             tail.next = tail;
+        } else {
+            novo.next = tail.next;
+            tail.next = novo;
+            tail = novo;
         }
-        novo.next = tail.next;
-        tail.next = novo;
-        tail = novo;
         size++;
     }
     public Processo removeFirst(){
         if(isEmpty()){
             return null;
         }
-        tail.next = tail.next.next;
-        return tail.next.processo;
+        Node head = tail.next;
+        if(tail == head){
+            tail = null;
+        } else {
+            tail.next = head.next;
+        }
+        size--;
+        return head.processo;
     }
     public void printList(){
         Node atual = tail.next;
@@ -50,7 +46,7 @@ public class ListaDeProcessos {
             return;
         }
         do{
-            System.out.println(atual.processo);
+            System.out.println(atual.processo.toString());
             atual = atual.next;
         }while(atual != tail.next);
     }

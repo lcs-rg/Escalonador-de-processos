@@ -12,8 +12,8 @@ public class Main{
         Processo processo3 = new Processo(4, "Opera", 2, 4, "DISCO");
         Processo processo4 = new Processo(5, "Fortnite", 3, 4, "");
         Scheduler scheduler = new Scheduler();
-        scheduler.addProcesso(processo);
         scheduler.addProcesso(processo1);
+        scheduler.addProcesso(processo);
         scheduler.execCiclo();
         scheduler.execCiclo();
         scheduler.execCiclo();
@@ -21,5 +21,8 @@ public class Main{
         scheduler.execCiclo();
         scheduler.execCiclo();
         scheduler.execCiclo();
+        scheduler.execCiclo();
+        scheduler.execCiclo();
+        System.out.println(scheduler.getLista_bloqueados());
     }
 }
