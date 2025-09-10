@@ -1,21 +1,73 @@
 package Teste;
+import java.util.Scanner;
 
-import Dominio.FilaCircularDeProcessos;
 import Dominio.*;
 
 public class Main{
     public static void main(String[] args) {
-        FilaCircularDeProcessos listaDeProcessos = new FilaCircularDeProcessos();
-        Processo processo = new Processo(1, "Spotify", 1, 5, "");
-        Processo processo1 = new Processo(2, "Google", 2, 3, "DISCO");
-        Processo processo2 = new Processo(3, "Brave", 1, 4, "");
-        Processo processo3 = new Processo(4, "Opera", 2, 4, "DISCO");
-        Processo processo4 = new Processo(5, "Fortnite", 3, 4, "");
-        Processo processo5 = new Processo(6, "CS-GO", 1, 5, "DISCO");
         Scheduler scheduler = new Scheduler();
-        scheduler.addProcesso(processo2);
-        scheduler.addProcesso(processo);
-        scheduler.addProcesso(processo5);
-        scheduler.execTodosCiclos();
+        Scanner sc = new Scanner(System.in);
+        int opcao;
+        do {
+            System.out.println("===|=========================================|===");
+            System.out.println("===|         ESCALONADOR DE PROCESSOS        |===");
+            System.out.println("===| Digite a opção abaixo que você  deseja: |===");
+            System.out.println("===|      Adicionar um novo processo: 1      |===");
+            System.out.println("===|         Remover um  processo: 2         |===");
+            System.out.println("===|            Ver um processo: 3           |===");
+            System.out.println("===|             Ver uma lista: 4            |===");
+            System.out.println("===|           Executar um ciclo: 5          |===");
+            System.out.println("===|       Executar todos os ciclos: 6       |===");
+            System.out.println("===|=========================================|===");
+            opcao = sc.nextInt();
+            sc.nextLine();
+            switch (opcao){
+                case 1:
+                System.out.println("Digite o ID do processo: ");
+                int id = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Digite o nome do processo: ");
+                String nome = sc.nextLine();
+                System.out.println("Digite a prioridade do processo: ");
+                int prioridade = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Digite a quantidde de ciclos necessários do processo: ");
+                int ciclos = sc.nextInt();
+                sc.nextLine();
+                System.out.println("Digite se necessário o recurso do processo: ");
+                String recurso = sc.nextLine();
+                Processo processo = new Processo(id, nome, prioridade, ciclos, recurso);
+                scheduler.addProcesso(processo);
+            break;
+                case 2 :
+                    System.out.println("Digite o ID do processo a ser removido");
+                    int removerid = sc.nextInt();
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+                    int verlista;
+                    System.out.println("Qual lista você deseja ver?:");
+                    System.out.println("Lista de Alta prioridade: 1");
+                    System.out.println("Lista de Media prioridade: 2");
+                    System.out.println("Lista de Baixa prioridade: 3");
+                    System.out.println("Lista de Bloqueados: 4");
+                    verlista = sc.nextInt();
+                    sc.nextLine();
+                    if(verlista == 1){
+
+                    } else if(verlista == 2)
+                    break;
+                case 5:
+                    scheduler.execCiclo();
+                    break;
+                case 6:
+                    scheduler.execTodosCiclos();
+                    break;
+            }
+            System.out.println(scheduler.getListaAltaP());
+            System.out.println(scheduler.getListaMediaP());
+        } while(opcao != 5);
     }
 }

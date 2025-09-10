@@ -47,6 +47,8 @@ public class Scheduler {
                 break;
                 case 3: listaBaixaP.addLast(processo);
                 break;
+                default:
+                    throw new IndexOutOfBoundsException("Crie um processo com prioridade permitida");
         }
     }
     public void execCiclo() {
