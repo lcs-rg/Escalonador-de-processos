@@ -1,9 +1,9 @@
 package Dominio;
 
-public class ListaDeProcessos {
+public class FilaCircularDeProcessos {
     public Node tail;
     private int size;
-    public ListaDeProcessos(){
+    public FilaCircularDeProcessos(){
         this.tail = null;
         this.size = 0;
     }
