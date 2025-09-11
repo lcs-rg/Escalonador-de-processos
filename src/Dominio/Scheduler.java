@@ -13,17 +13,17 @@ public class Scheduler {
         this.listaBloqueados = new FilaCircularDeProcessos();
         this.contador_ciclos_alta_prioridade = 0;
     }
-    public String getListaMediaP(){
-        return listaMediaP.toString();
+    public FilaCircularDeProcessos getListaMediaP(){
+        return listaMediaP;
     }
-    public String getListaBaixaP(){
-        return listaBaixaP.toString();
+    public FilaCircularDeProcessos getListaBaixaP(){
+        return listaBaixaP;
     }
-    public String getListaAltaP(){
-        return listaAltaP.toString();
+    public FilaCircularDeProcessos getListaAltaP(){
+        return listaAltaP;
     }
-    public String getListaBloqueados(){
-        return listaBloqueados.toString();
+    public FilaCircularDeProcessos getListaBloqueados(){
+        return listaBloqueados;
     }
     private boolean ListasVazias(){
         return listaAltaP.isEmpty() && listaMediaP.isEmpty() &&

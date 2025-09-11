@@ -39,6 +39,30 @@ public class FilaCircularDeProcessos {
         size--;
         return head.processo;
     }
+    public void iterar(){
+        if(isEmpty()){
+            return;
+        }
+        Node atual = tail.next;
+                do{
+                    System.out.println(atual.processo.toString());
+                    atual = atual.next;
+                } while (atual != tail.next);
+    }
+    public Processo buscar(int id){
+        if(isEmpty()){
+            return null;
+        }
+        Node atual = tail.next;
+        do {
+            if (atual.processo.id == id){
+                return atual.processo;
+        }
+
+            atual = atual.next;
+        }while (atual != tail.next);
+            return null;
+    }
     public Processo peek(){
         return tail.next.processo;
     }

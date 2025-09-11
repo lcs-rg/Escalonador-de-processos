@@ -21,7 +21,7 @@ public class Main{
             System.out.println("===|           Executar um ciclo: 7          |===");
             System.out.println("===|       Executar todos os ciclos: 8       |===");
             System.out.println("===|           Executar N ciclos: 9          |===");
-            System.out.println("===|          Resetar escalonador: 10         |===");
+            System.out.println("===|          Resetar escalonador: 10        |===");
             System.out.println("===|                  Sair: 0                |===");
             System.out.println("===|=========================================|===");
             opcao = sc.nextInt();
@@ -57,6 +57,15 @@ public class Main{
                     //if(verprocesso == processo.id)
                     break;
                 case 4:
+                    System.out.println("Digite o Id do processo");
+                    int buscar = sc.nextInt();
+                    sc.nextLine();
+                    if(scheduler.getListaAltaP().buscar(buscar) == null){
+                        System.out.println();
+                    };
+
+                    break;
+                case 5:
                     int verlista;
                     do {
                         System.out.println("Qual lista você deseja ver?:");
@@ -83,16 +92,16 @@ public class Main{
                         }
                     } while (verlista != 0);
                     break;
-                case 5:
-                    scheduler.execCiclo();
-                    break;
                 case 6:
-                    scheduler.execTodosCiclos();
+                    scheduler.verProximo();
                     break;
                 case 7:
-
+                    scheduler.execCiclo();
                     break;
                 case 8:
+                    scheduler.execTodosCiclos();
+                    break;
+                case 9:
                     System.out.println("Deseja executar quantos ciclos?");
                     int qntd = sc.nextInt();
                     sc.nextLine();
@@ -100,14 +109,14 @@ public class Main{
                         scheduler.execCiclo();
                     }
                     break;
-                case 9:
+                case 10:
                     scheduler = new Scheduler();
                     System.out.println("Escalonador resetado");
                     break;
-                case 0:
-                    System.out.println("Saindo...");
-                    return;
+                default:
+                    System.out.println("Número não permitido");
             }
-        } while(opcao != 5);
+        } while(opcao != 0);
+                    System.out.println("Saindo...");
     }
 }
