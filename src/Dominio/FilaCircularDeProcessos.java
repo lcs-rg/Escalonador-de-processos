@@ -39,6 +39,9 @@ public class FilaCircularDeProcessos {
         size--;
         return head.processo;
     }
+    public Processo peek(){
+        return tail.next.processo;
+    }
     public void printList(){
         Node atual = tail.next;
         if(isEmpty()){

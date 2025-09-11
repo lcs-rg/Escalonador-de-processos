@@ -138,4 +138,14 @@ public class Scheduler {
             addProcesso(atual);
         }
     }
+    public Processo verProximo(){
+        if(!listaAltaP.isEmpty()) return listaAltaP.peek();
+        if(!listaMediaP.isEmpty()) return listaMediaP.peek();
+        if(!listaBaixaP.isEmpty()) return listaBaixaP.peek();
+        if(!listaBloqueados.isEmpty()) return listaBloqueados.peek();
+        return null;
+    }
+    /*public Processo buscarProcesso(int id){
+        for(Processo processo : listaAltaP) if(processo.getId() == id) return processo;
+        }*/
 }

@@ -14,10 +14,15 @@ public class Main{
             System.out.println("===| Digite a opção abaixo que você  deseja: |===");
             System.out.println("===|      Adicionar um novo processo: 1      |===");
             System.out.println("===|         Remover um  processo: 2         |===");
-            System.out.println("===|            Ver um processo: 3           |===");
-            System.out.println("===|             Ver uma lista: 4            |===");
-            System.out.println("===|           Executar um ciclo: 5          |===");
-            System.out.println("===|       Executar todos os ciclos: 6       |===");
+            System.out.println("===|         Atualizar um processo: 3        |===");
+            System.out.println("===|            Ver um processo: 4           |===");
+            System.out.println("===|               Ver listas: 5             |===");
+            System.out.println("===|          Ver proximo processo: 6        |===");
+            System.out.println("===|           Executar um ciclo: 7          |===");
+            System.out.println("===|       Executar todos os ciclos: 8       |===");
+            System.out.println("===|           Executar N ciclos: 9          |===");
+            System.out.println("===|          Resetar escalonador: 10         |===");
+            System.out.println("===|                  Sair: 0                |===");
             System.out.println("===|=========================================|===");
             opcao = sc.nextInt();
             sc.nextLine();
@@ -42,22 +47,41 @@ public class Main{
                 case 2 :
                     System.out.println("Digite o ID do processo a ser removido");
                     int removerid = sc.nextInt();
+                    sc.nextLine();
+                    //if(removerid == )
                     break;
                 case 3:
-
+                    System.out.println("Digite o ID do processo:");
+                    int verprocesso = sc.nextInt();
+                    sc.nextLine();
+                    //if(verprocesso == processo.id)
                     break;
                 case 4:
                     int verlista;
-                    System.out.println("Qual lista você deseja ver?:");
-                    System.out.println("Lista de Alta prioridade: 1");
-                    System.out.println("Lista de Media prioridade: 2");
-                    System.out.println("Lista de Baixa prioridade: 3");
-                    System.out.println("Lista de Bloqueados: 4");
-                    verlista = sc.nextInt();
-                    sc.nextLine();
-                    if(verlista == 1){
-
-                    } else if(verlista == 2)
+                    do {
+                        System.out.println("Qual lista você deseja ver?:");
+                        System.out.println("Lista de Alta prioridade: 1");
+                        System.out.println("Lista de Media prioridade: 2");
+                        System.out.println("Lista de Baixa prioridade: 3");
+                        System.out.println("Lista de Bloqueados: 4");
+                        System.out.println("Todas as listas: 5");
+                        System.out.println("Sair: 0");
+                        verlista = sc.nextInt();
+                        sc.nextLine();
+                        if (verlista == 1) {
+                            System.out.println(scheduler.getListaAltaP());
+                        } else if (verlista == 2) {
+                            System.out.println(scheduler.getListaMediaP());
+                        } else if (verlista == 3) {
+                            System.out.println(scheduler.getListaBaixaP());
+                        } else if (verlista == 4) {
+                            System.out.println(scheduler.getListaBloqueados());
+                        } else if (verlista == 5) {
+                            System.out.println(scheduler.toString());
+                        } else{
+                            System.out.println("Número não permitido");
+                        }
+                    } while (verlista != 0);
                     break;
                 case 5:
                     scheduler.execCiclo();
@@ -65,9 +89,25 @@ public class Main{
                 case 6:
                     scheduler.execTodosCiclos();
                     break;
+                case 7:
+
+                    break;
+                case 8:
+                    System.out.println("Deseja executar quantos ciclos?");
+                    int qntd = sc.nextInt();
+                    sc.nextLine();
+                    for(int i = 0; i < qntd; i++){
+                        scheduler.execCiclo();
+                    }
+                    break;
+                case 9:
+                    scheduler = new Scheduler();
+                    System.out.println("Escalonador resetado");
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    return;
             }
-            System.out.println(scheduler.getListaAltaP());
-            System.out.println(scheduler.getListaMediaP());
         } while(opcao != 5);
     }
 }
