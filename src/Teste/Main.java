@@ -60,10 +60,7 @@ public class Main{
                     System.out.println("Digite o Id do processo");
                     int buscar = sc.nextInt();
                     sc.nextLine();
-                    if(scheduler.getListaAltaP().buscar(buscar) == null){
-                        System.out.println();
-                    };
-
+                    scheduler.buscarProcesso(buscar);
                     break;
                 case 5:
                     int verlista;

@@ -145,7 +145,24 @@ public class Scheduler {
         if(!listaBloqueados.isEmpty()) return listaBloqueados.peek();
         return null;
     }
-    /*public Processo buscarProcesso(int id){
-        for(Processo processo : listaAltaP) if(processo.getId() == id) return processo;
-        }*/
+    public Processo buscarProcesso(int id){
+        Processo processo = listaAltaP.buscar(id);
+        if (processo != null) {
+            return processo;
+        }
+        processo = listaMediaP.buscar(id);
+        if (processo != null) {
+            return processo;
+        }
+        processo = listaBaixaP.buscar(id);
+
+        if (processo != null) {
+            return processo;
+        }
+        processo = listaBloqueados.buscar(id);
+        if (processo != null) {
+            return processo;
+        }
+        return null;
+    }
 }
