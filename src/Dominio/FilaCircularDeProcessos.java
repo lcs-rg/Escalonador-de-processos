@@ -14,6 +14,19 @@ public class FilaCircularDeProcessos {
         return tail == null;
     }
 
+    @Override
+    public String toString(){
+        if(isEmpty()){
+            return "Lista Vazia";
+        }
+        StringBuilder sb = new StringBuilder();
+        Node atual = tail.next;
+        do{
+            sb.append(atual.processo.toString()).append("\n");
+            atual = atual.next;
+        }while(atual != tail.next);
+        return sb.toString();
+    }
     public void addLast(Processo processo){
         Node novo = new Node(processo);
         if(isEmpty()){
@@ -99,19 +112,6 @@ public class FilaCircularDeProcessos {
             atual = atual.next;
         }while(atual != tail.next);
     }
-    @Override
-    public String toString(){
-        if(isEmpty()){
-            return "Lista Vazia";
-        }
-        StringBuilder sb = new StringBuilder();
-        Node atual = tail.next;
-        do{
-            sb.append(atual.processo.toString()).append("\n");
-            atual = atual.next;
-        }while(atual != tail.next);
-        return sb.toString();
-    }
     public String exportar(){
         if(isEmpty()){
             return "";
@@ -127,14 +127,5 @@ public class FilaCircularDeProcessos {
             atual = atual.next;
         } while (atual != tail.next);
         return sb.toString();
-    }
-    public void importar(String processos){
-        if(processos.isEmpty()){
-            return;
-        }
-        String[] linhas = processos.split("\n");
-        for(String linha : linhas){
-
-        }
     }
 }

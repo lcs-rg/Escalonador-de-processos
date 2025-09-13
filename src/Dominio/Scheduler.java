@@ -76,7 +76,7 @@ public class Scheduler {
             return;
         }
         while (!ListasVazias()){
-            System.out.println("\n=== Ciclo:" + ciclo + "===");
+            System.out.println("\n=== Ciclo:" + ciclo + " ===");
             System.out.println();
             execCiclo();
             ciclo++;

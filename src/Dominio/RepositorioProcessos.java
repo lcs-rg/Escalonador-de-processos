@@ -7,7 +7,6 @@ public class RepositorioProcessos {
     public static void salvar(Scheduler scheduler){
         try(FileWriter fw = new FileWriter(arquivo)){
             String conteudo = scheduler.exportarTudo();
-            System.out.println("Debug salvo: \n" + conteudo);
             fw.write(conteudo);
         } catch (IOException e){
             System.out.println("Erro ao salvar processo" + e.getMessage());
