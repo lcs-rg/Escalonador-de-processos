@@ -125,13 +125,13 @@ public class Main{
                         verlista = sc.nextInt();
                         sc.nextLine();
                         if (verlista == 1) {
-                            System.out.println(scheduler.getListaAltaP());
+                            System.out.println(scheduler.getFilaAltaP());
                         } else if (verlista == 2) {
-                            System.out.println(scheduler.getListaMediaP());
+                            System.out.println(scheduler.getFilaMediaP());
                         } else if (verlista == 3) {
-                            System.out.println(scheduler.getListaBaixaP());
+                            System.out.println(scheduler.getFilaBaixaP());
                         } else if (verlista == 4) {
-                            System.out.println(scheduler.getListaBloqueados());
+                            System.out.println(scheduler.getFilaBloqueados());
                         } else if (verlista == 5) {
                             System.out.println(scheduler.toString());
                         } else{

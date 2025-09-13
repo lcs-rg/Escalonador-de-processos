@@ -1,57 +1,57 @@
 package Dominio;
 
 public class Scheduler {
-    FilaCircularDeProcessos listaAltaP;
-    FilaCircularDeProcessos listaMediaP;
-    FilaCircularDeProcessos listaBaixaP;
-    FilaCircularDeProcessos listaBloqueados;
+    FilaCircularDeProcessos filaAltaP;
+    FilaCircularDeProcessos filaMediaP;
+    FilaCircularDeProcessos filaBaixaP;
+    FilaCircularDeProcessos filaBloqueados;
     public int contador_ciclos_alta_prioridade;
     public Scheduler(){
-        this.listaAltaP = new FilaCircularDeProcessos();
-        this.listaMediaP = new FilaCircularDeProcessos();
-        this.listaBaixaP = new FilaCircularDeProcessos();
-        this.listaBloqueados = new FilaCircularDeProcessos();
+        this.filaAltaP = new FilaCircularDeProcessos();
+        this.filaMediaP = new FilaCircularDeProcessos();
+        this.filaBaixaP = new FilaCircularDeProcessos();
+        this.filaBloqueados = new FilaCircularDeProcessos();
         this.contador_ciclos_alta_prioridade = 0;
     }
-    public FilaCircularDeProcessos getListaMediaP(){
-        return listaMediaP;
+    public FilaCircularDeProcessos getFilaMediaP(){
+        return filaMediaP;
     }
-    public FilaCircularDeProcessos getListaBaixaP(){
-        return listaBaixaP;
+    public FilaCircularDeProcessos getFilaBaixaP(){
+        return filaBaixaP;
     }
-    public FilaCircularDeProcessos getListaAltaP(){
-        return listaAltaP;
+    public FilaCircularDeProcessos getFilaAltaP(){
+        return filaAltaP;
     }
-    public FilaCircularDeProcessos getListaBloqueados(){
-        return listaBloqueados;
+    public FilaCircularDeProcessos getFilaBloqueados(){
+        return filaBloqueados;
     }
     private boolean ListasVazias(){
-        return listaAltaP.isEmpty() && listaMediaP.isEmpty() &&
-                listaBaixaP.isEmpty() && listaBloqueados.isEmpty();
+        return filaAltaP.isEmpty() && filaMediaP.isEmpty() &&
+                filaBaixaP.isEmpty() && filaBloqueados.isEmpty();
     }
 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Prioridade Alta:").append(listaAltaP.toString()).append("\n");
-        sb.append("Prioridade Media:").append(listaMediaP.toString()).append("\n");
-        sb.append("Prioridade Baixa:").append(listaBaixaP.toString()).append("\n");
-        sb.append("Lista de bloqueados:").append(listaBloqueados.toString());
+        sb.append("Prioridade Alta:").append(filaAltaP.toString()).append("\n");
+        sb.append("Prioridade Media:").append(filaMediaP.toString()).append("\n");
+        sb.append("Prioridade Baixa:").append(filaBaixaP.toString()).append("\n");
+        sb.append("Lista de bloqueados:").append(filaBloqueados.toString());
         return sb.toString();
     }
     public String exportarTudo(){
-        return listaAltaP.exportar()
-                + listaMediaP.exportar()
-                + listaBaixaP.exportar()
-                + listaBloqueados.exportar();
+        return filaAltaP.exportar()
+                + filaMediaP.exportar()
+                + filaBaixaP.exportar()
+                + filaBloqueados.exportar();
     }
     public void addProcesso(Processo processo) {
             switch (processo.getPrioridade()){
-                case 1: listaAltaP.addLast(processo);
+                case 1: filaAltaP.addLast(processo);
                 break;
-                case 2: listaMediaP.addLast(processo);
+                case 2: filaMediaP.addLast(processo);
                 break;
-                case 3: listaBaixaP.addLast(processo);
+                case 3: filaBaixaP.addLast(processo);
                 break;
                 default:
                     throw new IndexOutOfBoundsException("Crie um processo com prioridade permitida");
@@ -85,18 +85,18 @@ public class Scheduler {
     }
 
     private void desbloquearProcesso(){
-        if(!listaBloqueados.isEmpty()) {
-            Processo desbloqueado = listaBloqueados.removeFirst();
+        if(!filaBloqueados.isEmpty()) {
+            Processo desbloqueado = filaBloqueados.removeFirst();
             System.out.println("Processo desbloquado:" + desbloqueado);
             switch (desbloqueado.prioridade) {
                 case 1:
-                    listaAltaP.addLast(desbloqueado);
+                    filaAltaP.addLast(desbloqueado);
                     break;
                 case 2:
-                    listaMediaP.addLast(desbloqueado);
+                    filaMediaP.addLast(desbloqueado);
                     break;
                 case 3:
-                    listaBaixaP.addLast(desbloqueado);
+                    filaBaixaP.addLast(desbloqueado);
             }
         }
     }
@@ -105,24 +105,24 @@ public class Scheduler {
 
         // controle de fatia de tempo da prioridade alta
         if(contador_ciclos_alta_prioridade >= 5){
-             if(!listaMediaP.isEmpty()){
-                atual = listaMediaP.removeFirst();
+             if(!filaMediaP.isEmpty()){
+                atual = filaMediaP.removeFirst();
                 contador_ciclos_alta_prioridade = 0;
-            } else if(!listaBaixaP.isEmpty()){
-                atual = listaBaixaP.removeFirst();
+            } else if(!filaBaixaP.isEmpty()){
+                atual = filaBaixaP.removeFirst();
                 contador_ciclos_alta_prioridade = 0;
             }
         }
 
         if(atual == null){
-            if(!listaAltaP.isEmpty()){
-                atual = listaAltaP.removeFirst();
+            if(!filaAltaP.isEmpty()){
+                atual = filaAltaP.removeFirst();
                 contador_ciclos_alta_prioridade++;
-            } else if(!listaMediaP.isEmpty()){
-                atual = listaMediaP.removeFirst();
+            } else if(!filaMediaP.isEmpty()){
+                atual = filaMediaP.removeFirst();
                 contador_ciclos_alta_prioridade = 0;
-            } else if(!listaBaixaP.isEmpty()){
-                atual = listaBaixaP.removeFirst();
+            } else if(!filaBaixaP.isEmpty()){
+                atual = filaBaixaP.removeFirst();
                 contador_ciclos_alta_prioridade = 0;
             }
         }
@@ -136,7 +136,7 @@ public class Scheduler {
         if("DISCO".equalsIgnoreCase(atual.recurso_necessario)){
             System.out.println("Processo " + atual.nome + " foi bloqueado aguardando DISCO");
             atual.recurso_necessario = null;
-            listaBloqueados.addLast(atual);
+            filaBloqueados.addLast(atual);
             return;
         }
         atual.ciclos_necessarios--;
@@ -149,46 +149,46 @@ public class Scheduler {
         }
     }
     public Processo verProximo(){
-        if(!listaAltaP.isEmpty()) return listaAltaP.peek();
-        if(!listaMediaP.isEmpty()) return listaMediaP.peek();
-        if(!listaBaixaP.isEmpty()) return listaBaixaP.peek();
-        if(!listaBloqueados.isEmpty()) return listaBloqueados.peek();
+        if(!filaAltaP.isEmpty()) return filaAltaP.peek();
+        if(!filaMediaP.isEmpty()) return filaMediaP.peek();
+        if(!filaBaixaP.isEmpty()) return filaBaixaP.peek();
+        if(!filaBloqueados.isEmpty()) return filaBloqueados.peek();
         return null;
     }
     public Processo buscarProcesso(int id){
-        Processo processo = listaAltaP.buscar(id);
+        Processo processo = filaAltaP.buscar(id);
         if (processo != null) {
             return processo;
         }
-        processo = listaMediaP.buscar(id);
+        processo = filaMediaP.buscar(id);
         if (processo != null) {
             return processo;
         }
-        processo = listaBaixaP.buscar(id);
+        processo = filaBaixaP.buscar(id);
 
         if (processo != null) {
             return processo;
         }
-        processo = listaBloqueados.buscar(id);
+        processo = filaBloqueados.buscar(id);
         if (processo != null) {
             return processo;
         }
         return null;
     }public int buscarId(int id){
-        Processo processo = listaAltaP.buscar(id);
+        Processo processo = filaAltaP.buscar(id);
         if (processo != null) {
             return processo.id;
         }
-        processo = listaMediaP.buscar(id);
+        processo = filaMediaP.buscar(id);
         if (processo != null) {
             return processo.id;
         }
-        processo = listaBaixaP.buscar(id);
+        processo = filaBaixaP.buscar(id);
 
         if (processo != null) {
             return processo.id;
         }
-        processo = listaBloqueados.buscar(id);
+        processo = filaBloqueados.buscar(id);
         if (processo != null) {
             return processo.id;
         }
@@ -197,10 +197,10 @@ public class Scheduler {
     public boolean removerProcesso(int id) {
         Processo p = buscarProcesso(id);
         if (p != null) {
-            if (listaAltaP.buscar(id) != null) listaAltaP.removeid(id);
-            else if (listaMediaP.buscar(id) != null) listaMediaP.removeid(id);
-            else if (listaBaixaP.buscar(id) != null) listaBaixaP.removeid(id);
-            else if (listaBloqueados.buscar(id) != null) listaBloqueados.removeid(id);
+            if (filaAltaP.buscar(id) != null) filaAltaP.removeid(id);
+            else if (filaMediaP.buscar(id) != null) filaMediaP.removeid(id);
+            else if (filaBaixaP.buscar(id) != null) filaBaixaP.removeid(id);
+            else if (filaBloqueados.buscar(id) != null) filaBloqueados.removeid(id);
             System.out.println("Processo removido com sucesso");
             return true;
         }
