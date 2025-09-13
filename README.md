@@ -1,3 +1,13 @@
+Instituição: Icev Instituto de Ensino Superior.
+
+Disciplina: Estrutura de Dados. 
+
+Professor: Dimmy Magalhães.
+
+Aluno: Lucas Rocha Guerra, 0030634
+
+
+
 Escalonador de Processos
 
 Visão Geral

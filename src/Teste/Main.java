@@ -1,9 +1,9 @@
 package Teste;
-import java.util.Scanner;
 
+import java.util.Scanner;
 import Dominio.*;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
         Scheduler scheduler = RepositorioProcessos.carregar();
         Scanner sc = new Scanner(System.in);
@@ -28,59 +28,58 @@ public class Main{
             System.out.println();
             opcao = sc.nextInt();
             sc.nextLine();
-            switch (opcao){
+            switch (opcao) {
                 case 1:
-                System.out.println("Digite o ID do processo: ");
-                int id = sc.nextInt();
-                sc.nextLine();
-                if(id == scheduler.buscarId(id)){
-                    throw new IndexOutOfBoundsException("[ERRO] Id:"+ id + " já existente, tente novamente");
-                }
-                System.out.println("Digite o nome do processo: ");
-                String nome = sc.nextLine();
-                System.out.println("Digite a prioridade do processo: ");
-                int prioridade = sc.nextInt();
-                sc.nextLine();
-                System.out.println("Digite a quantidade de ciclos necessários do processo: ");
-                int ciclos = sc.nextInt();
-                sc.nextLine();
-                System.out.println("Digite o recurso do processo(caso não haja, digite \"null\"): ");
-                String recurso = sc.nextLine();
-                if(recurso.isEmpty()){
-                    throw new IndexOutOfBoundsException("[ERRO] Nenhum caractere informado.");
-                }
-                Processo processo = new Processo(id, nome, prioridade, ciclos, recurso);
-                scheduler.addProcesso(processo);
-                RepositorioProcessos.salvar(scheduler);
-            break;
-                case 2 :
+                    System.out.println("Digite o ID do processo: ");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+                    if (id == scheduler.buscarId(id)) {
+                        throw new IndexOutOfBoundsException("[ERRO] Id:" + id + " já existente, tente novamente");
+                    }
+                    System.out.println("Digite o nome do processo: ");
+                    String nome = sc.nextLine();
+                    System.out.println("Digite a prioridade do processo: ");
+                    int prioridade = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Digite a quantidade de ciclos necessários do processo: ");
+                    int ciclos = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Digite o recurso do processo(caso não haja, digite \"null\"): ");
+                    String recurso = sc.nextLine();
+                    if (recurso.isEmpty()) {
+                        throw new IndexOutOfBoundsException("[ERRO] Nenhum caractere informado.");
+                    }
+                    Processo processo = new Processo(id, nome, prioridade, ciclos, recurso);
+                    scheduler.addProcesso(processo);
+                    RepositorioProcessos.salvar(scheduler);
+                    break;
+                case 2:
                     System.out.println("Digite o ID do processo a ser removido");
                     int removerid = sc.nextInt();
                     sc.nextLine();
                     scheduler.removerProcesso(removerid);
-                RepositorioProcessos.salvar(scheduler);
+                    RepositorioProcessos.salvar(scheduler);
                     break;
                 case 3:
                     System.out.println("Digite o ID do processo:");
                     int atualizar = sc.nextInt();
                     sc.nextLine();
                     Processo processoAtual = scheduler.buscarProcesso(atualizar);
-                    if (processoAtual == null){
+                    if (processoAtual == null) {
                         System.out.println("[ERRO] Processo com id:" + atualizar + " Não encontrado.");
                     } else {
-
                         System.out.println("Digite o novo nome do processo (ou Enter para manter: " + processoAtual.getNome() + "):");
                         String novoNome = sc.nextLine();
-                        if(!novoNome.isBlank()) {
-                            processoAtual.nome = novoNome;
+                        if (!novoNome.isBlank()) {
+                            processoAtual.setNome(novoNome);
                         }
 
                         System.out.println("Digite a nova prioridade (1,2,3) ou Enter para manter: " + processoAtual.getPrioridade());
                         String novaPrioridade = sc.nextLine();
-                        if(!novaPrioridade.isBlank()){
+                        if (!novaPrioridade.isBlank()) {
                             int prioridadeInt = Integer.parseInt(novaPrioridade);
-                            if(prioridadeInt >= 1 && prioridadeInt <= 3){
-                                processoAtual.prioridade = prioridadeInt;
+                            if (prioridadeInt >= 1 && prioridadeInt <= 3) {
+                                processoAtual.setPrioridade(prioridadeInt);
                             } else {
                                 System.out.println("[ERRO] Prioridade inválida, mantida a anterior.");
                             }
@@ -88,25 +87,25 @@ public class Main{
 
                         System.out.println("Digite a nova quantidade de ciclos ou Enter para manter: " + processoAtual.getCiclos_necessarios());
                         String novosCiclos = sc.nextLine();
-                        if(!novosCiclos.isBlank()){
-                            processoAtual.ciclos_necessarios = Integer.parseInt(novosCiclos);
+                        if (!novosCiclos.isBlank()) {
+                            processoAtual.setCiclos_necessarios(Integer.parseInt(novosCiclos));
                         }
 
                         System.out.println("Digite o novo recurso ou Enter para manter: " + processoAtual.getRecurso_necessario());
                         String novoRecurso = sc.nextLine();
-                        if(!novoRecurso.isBlank()){
-                            processoAtual.recurso_necessario = novoRecurso;
+                        if (!novoRecurso.isBlank()) {
+                            processoAtual.setRecurso_necessario(novoRecurso);
                         }
 
                         System.out.println("Processo atualizado com sucesso!");
                     }
-                RepositorioProcessos.salvar(scheduler);
+                    RepositorioProcessos.salvar(scheduler);
                     break;
                 case 4:
                     System.out.println("Digite o Id do processo");
                     int buscar = sc.nextInt();
                     sc.nextLine();
-                    if(scheduler.buscarProcesso(buscar) == null) {
+                    if (scheduler.buscarProcesso(buscar) == null) {
                         throw new NullPointerException("[ERRO] Processo com id:" + buscar + " inexistente");
                     } else {
                         System.out.println(scheduler.buscarProcesso(buscar).toString());
@@ -134,13 +133,13 @@ public class Main{
                             System.out.println(scheduler.getFilaBloqueados());
                         } else if (verlista == 5) {
                             System.out.println(scheduler.toString());
-                        } else{
+                        } else {
                             System.out.println("[ERRO] Número não permitido");
                         }
                     } while (verlista != 0);
                     break;
                 case 6:
-                    if (scheduler.verProximo().toString() == null){
+                    if (scheduler.verProximo() == null) {
                         System.out.println("[ERRO] Nenhum processo disponível");
                     } else {
                         System.out.println(scheduler.verProximo().toString());
@@ -154,7 +153,7 @@ public class Main{
                     System.out.println("Deseja executar quantos ciclos?");
                     int qntd = sc.nextInt();
                     sc.nextLine();
-                    for(int i = 0; i < qntd; i++){
+                    for (int i = 0; i < qntd; i++) {
                         System.out.println("=== Ciclo:" + (1 + i) + " ===");
                         scheduler.execCiclo();
                     }
@@ -175,9 +174,9 @@ public class Main{
                 default:
                     System.out.println("[ERRO] Número não permitido");
             }
-        } while(opcao != 0);
+        } while (opcao != 0);
         sc.close();
         RepositorioProcessos.salvar(scheduler);
-                    System.out.println("Saindo...");
+        System.out.println("Saindo...");
     }
 }
