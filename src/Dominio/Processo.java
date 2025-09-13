@@ -41,7 +41,4 @@ public class Processo{
         sb.append("]");
         return sb.toString();
     }
-    public void apagar(){
-        Processo processo = null;
-    }
 }

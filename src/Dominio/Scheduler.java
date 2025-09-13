@@ -39,6 +39,12 @@ public class Scheduler {
         sb.append("Lista de bloqueados:").append(listaBloqueados.toString());
         return sb.toString();
     }
+    public String exportarTudo(){
+        return listaAltaP.exportar()
+                + listaMediaP.exportar()
+                + listaBaixaP.exportar()
+                + listaBloqueados.exportar();
+    }
     public void addProcesso(Processo processo) {
             switch (processo.getPrioridade()){
                 case 1: listaAltaP.addLast(processo);
@@ -65,6 +71,10 @@ public class Scheduler {
     }
     public void execTodosCiclos(){
         int ciclo = 1;
+        if(ListasVazias()){
+            System.out.println("Nenhum ciclo a ser concluído...");
+            return;
+        }
         while (!ListasVazias()){
             System.out.println("\n=== Ciclo:" + ciclo + "===");
             System.out.println();
@@ -164,5 +174,37 @@ public class Scheduler {
             return processo;
         }
         return null;
+    }public int buscarId(int id){
+        Processo processo = listaAltaP.buscar(id);
+        if (processo != null) {
+            return processo.id;
+        }
+        processo = listaMediaP.buscar(id);
+        if (processo != null) {
+            return processo.id;
+        }
+        processo = listaBaixaP.buscar(id);
+
+        if (processo != null) {
+            return processo.id;
+        }
+        processo = listaBloqueados.buscar(id);
+        if (processo != null) {
+            return processo.id;
+        }
+        return 0;
+    }
+    public boolean removerProcesso(int id) {
+        Processo p = buscarProcesso(id);
+        if (p != null) {
+            if (listaAltaP.buscar(id) != null) listaAltaP.removeid(id);
+            else if (listaMediaP.buscar(id) != null) listaMediaP.removeid(id);
+            else if (listaBaixaP.buscar(id) != null) listaBaixaP.removeid(id);
+            else if (listaBloqueados.buscar(id) != null) listaBloqueados.removeid(id);
+            System.out.println("Processo removido com sucesso");
+            return true;
+        }
+        System.out.println("Nenhum processo com id:" + id + " a ser removido, tente novamente...");
+        return false;
     }
 }

@@ -39,6 +39,28 @@ public class FilaCircularDeProcessos {
         size--;
         return head.processo;
     }
+    public boolean removeid(int id){
+        if(isEmpty()) {
+            return false;
+        }
+            Node atual = tail.next;
+        Node anterior = tail;
+        do {
+        if(atual.processo.id == id){
+            if(atual == tail && atual.next == tail){
+                tail = null;
+            } else {
+                anterior.next = atual.next;
+                if (atual == tail) tail = anterior;
+            }
+            size--;
+            return true;
+        }
+        anterior = atual;
+        atual = atual.next;
+        }while (atual != tail.next);
+        return false;
+    }
     public void iterar(){
         if(isEmpty()){
             return;
@@ -89,5 +111,30 @@ public class FilaCircularDeProcessos {
             atual = atual.next;
         }while(atual != tail.next);
         return sb.toString();
+    }
+    public String exportar(){
+        if(isEmpty()){
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        Node atual = tail.next;
+        do {
+            sb.append(atual.processo.getId()).append(";");
+            sb.append(atual.processo.getNome()).append(";");
+            sb.append(atual.processo.getPrioridade()).append(";");
+            sb.append(atual.processo.getCiclos_necessarios()).append(";");
+            sb.append(atual.processo.getRecurso_necessario()).append("\n");
+            atual = atual.next;
+        } while (atual != tail.next);
+        return sb.toString();
+    }
+    public void importar(String processos){
+        if(processos.isEmpty()){
+            return;
+        }
+        String[] linhas = processos.split("\n");
+        for(String linha : linhas){
+
+        }
     }
 }

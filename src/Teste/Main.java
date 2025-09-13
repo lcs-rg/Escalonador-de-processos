@@ -5,7 +5,7 @@ import Dominio.*;
 
 public class Main{
     public static void main(String[] args) {
-        Scheduler scheduler = new Scheduler();
+        Scheduler scheduler = RepositorioProcessos.carregar();
         Scanner sc = new Scanner(System.in);
         int opcao;
         do {
@@ -19,8 +19,8 @@ public class Main{
             System.out.println("===|               Ver listas: 5             |===");
             System.out.println("===|          Ver proximo processo: 6        |===");
             System.out.println("===|           Executar um ciclo: 7          |===");
-            System.out.println("===|       Executar todos os ciclos: 8       |===");
-            System.out.println("===|           Executar N ciclos: 9          |===");
+            System.out.println("===|           Executar N ciclos: 8          |===");
+            System.out.println("===|       Executar todos os ciclos: 9       |===");
             System.out.println("===|          Resetar escalonador: 10        |===");
             System.out.println("===|                  Sair: 0                |===");
             System.out.println("===|=========================================|===");
@@ -31,30 +31,39 @@ public class Main{
                 System.out.println("Digite o ID do processo: ");
                 int id = sc.nextInt();
                 sc.nextLine();
+                if(id == scheduler.buscarId(id)){
+                    throw new IndexOutOfBoundsException("Id:"+ id + " já existente, tente novamente");
+                }
                 System.out.println("Digite o nome do processo: ");
                 String nome = sc.nextLine();
                 System.out.println("Digite a prioridade do processo: ");
                 int prioridade = sc.nextInt();
                 sc.nextLine();
-                System.out.println("Digite a quantidde de ciclos necessários do processo: ");
+                System.out.println("Digite a quantidade de ciclos necessários do processo: ");
                 int ciclos = sc.nextInt();
                 sc.nextLine();
-                System.out.println("Digite se necessário o recurso do processo: ");
+                System.out.println("Digite o recurso do processo(caso não haja, digite \"null\"): ");
                 String recurso = sc.nextLine();
+                if(recurso == ""){
+                    throw new IndexOutOfBoundsException("Nenhum caractere informado.");
+                }
                 Processo processo = new Processo(id, nome, prioridade, ciclos, recurso);
                 scheduler.addProcesso(processo);
+                RepositorioProcessos.salvar(scheduler);
             break;
                 case 2 :
                     System.out.println("Digite o ID do processo a ser removido");
                     int removerid = sc.nextInt();
                     sc.nextLine();
-                    //if(removerid == )
+                    scheduler.removerProcesso(removerid);
+                RepositorioProcessos.salvar(scheduler);
                     break;
                 case 3:
                     System.out.println("Digite o ID do processo:");
                     int verprocesso = sc.nextInt();
                     sc.nextLine();
                     //if(verprocesso == processo.id)
+                RepositorioProcessos.salvar(scheduler);
                     break;
                 case 4:
                     System.out.println("Digite o Id do processo");
@@ -96,9 +105,6 @@ public class Main{
                     scheduler.execCiclo();
                     break;
                 case 8:
-                    scheduler.execTodosCiclos();
-                    break;
-                case 9:
                     System.out.println("Deseja executar quantos ciclos?");
                     int qntd = sc.nextInt();
                     sc.nextLine();
@@ -106,14 +112,23 @@ public class Main{
                         scheduler.execCiclo();
                     }
                     break;
+                case 9:
+                    scheduler.execTodosCiclos();
+                    break;
                 case 10:
                     scheduler = new Scheduler();
                     System.out.println("Escalonador resetado");
+                    RepositorioProcessos.salvar(scheduler);
+                    break;
+                case 0:
+                    RepositorioProcessos.salvar(scheduler);
                     break;
                 default:
                     System.out.println("Número não permitido");
             }
         } while(opcao != 0);
+        sc.close();
+        RepositorioProcessos.salvar(scheduler);
                     System.out.println("Saindo...");
     }
 }
