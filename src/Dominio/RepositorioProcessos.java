@@ -1,10 +1,11 @@
 package Dominio;
 
 import java.io.*;
-
+/** classe com função de armazenar e carregar alterações feitas, para salvar em um arquivo */
 public class RepositorioProcessos {
+    /** string que recebe o nome do arquivo */
     private static final String arquivo = "Processo.txt";
-
+/** metodo para salvar implementações feitas ao compilar o código */
     public static void salvar(Scheduler scheduler) {
         try (FileWriter fw = new FileWriter(arquivo)) {
             String conteudo = scheduler.exportarTudo();
@@ -13,7 +14,7 @@ public class RepositorioProcessos {
             System.out.println("Erro ao salvar processo" + e.getMessage());
         }
     }
-
+/** metodo utilizado para carregar o conteúdo do arquivo ao compilar novamente o código */
     public static Scheduler carregar() {
         Scheduler scheduler = new Scheduler();
         File file = new File(arquivo);

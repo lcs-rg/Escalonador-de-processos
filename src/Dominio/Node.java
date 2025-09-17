@@ -3,12 +3,12 @@ package Dominio;
 public class Node {//classe Node
     private Processo processo;
     private Node next;
-
+/** construtor */
     public Node(Processo processo) {
         this.processo = processo;
         this.next = null;
     }
-
+    /** getters e setters*/
     public Processo getProcesso() {
         return processo;
     }

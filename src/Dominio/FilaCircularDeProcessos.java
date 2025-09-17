@@ -1,22 +1,22 @@
 package Dominio;
-
+/** classe da estrutura de dados criada */
 public class FilaCircularDeProcessos {
     private Node tail;
     private int size;
-
+    /** construtor */
     public FilaCircularDeProcessos() {
         this.tail = null;
         this.size = 0;
     }
-
+/** metodo que retorna tamanho da estrutura */
     public int size() {
         return this.size;
     }
-
+/** metodos que retorna true para lista vazia, caso contrário, false */
     public boolean isEmpty() {
         return tail == null;
     }
-
+/** getters e setters */
     public Node getTail() {
         return tail;
     }
@@ -28,7 +28,7 @@ public class FilaCircularDeProcessos {
     public void setSize(int size) {
         this.size = size;
     }
-
+/** toString */
     @Override
     public String toString() {
         if (isEmpty()) {
@@ -42,7 +42,7 @@ public class FilaCircularDeProcessos {
         } while (atual != tail.getNext());
         return sb.toString();
     }
-
+    /** metodo que adiciona um novo nó ao final da ADT */
     public void addLast(Processo processo) {
         Node novo = new Node(processo);
         if (isEmpty()) {
@@ -55,7 +55,7 @@ public class FilaCircularDeProcessos {
         }
         size++;
     }
-
+/** metodo que remove o primeiro nó da ADT */
     public Processo removeFirst() {
         if (isEmpty()) {
             return null;
@@ -69,7 +69,7 @@ public class FilaCircularDeProcessos {
         size--;
         return head.getProcesso();
     }
-
+/** metodo que remove um nó pelo id de processo, retornando boolean para exito ou não */
     public boolean removeid(int id) {
         if (isEmpty()) {
             return false;
@@ -92,7 +92,7 @@ public class FilaCircularDeProcessos {
         } while (atual != tail.getNext());
         return false;
     }
-
+/** metodo para iterar na ADT */
     public void iterar() {
         if (isEmpty()) {
             return;
@@ -103,7 +103,7 @@ public class FilaCircularDeProcessos {
             atual = atual.getNext();
         } while (atual != tail.getNext());
     }
-
+/** metodo que retorna processo na ADT a partir do id de processo */
     public Processo buscar(int id) {
         if (isEmpty()) {
             return null;
@@ -117,11 +117,11 @@ public class FilaCircularDeProcessos {
         } while (atual != tail.getNext());
         return null;
     }
-
+    /** metodo que retorna o primeiro elemento da ADT */
     public Processo peek() {
         return tail.getNext().getProcesso();
     }
-
+    /** metodo para iterar sobre a lista printando todos os elementos presentes */
     public void printList() {
         Node atual = tail.getNext();
         if (isEmpty()) {
@@ -133,7 +133,7 @@ public class FilaCircularDeProcessos {
             atual = atual.getNext();
         } while (atual != tail.getNext());
     }
-
+/** metodo para salvar as mudanças feitas na ADT, utilizado para armazenar em processo.txt */
     public String exportar() {
         if (isEmpty()) {
             return "";

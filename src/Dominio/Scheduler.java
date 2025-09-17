@@ -6,7 +6,7 @@ public class Scheduler {
     private FilaCircularDeProcessos filaBaixaP;
     private FilaCircularDeProcessos filaBloqueados;
     private int contador_ciclos_alta_prioridade;
-
+    /** construtor */
     public Scheduler() {
         this.filaAltaP = new FilaCircularDeProcessos();
         this.filaMediaP = new FilaCircularDeProcessos();
@@ -14,7 +14,7 @@ public class Scheduler {
         this.filaBloqueados = new FilaCircularDeProcessos();
         this.contador_ciclos_alta_prioridade = 0;
     }
-
+/** getters e setters */
     public FilaCircularDeProcessos getFilaAltaP() {
         return filaAltaP;
     }
@@ -54,12 +54,7 @@ public class Scheduler {
     public void setContadorCiclosAltaPrioridade(int contador_ciclos_alta_prioridade) {
         this.contador_ciclos_alta_prioridade = contador_ciclos_alta_prioridade;
     }
-
-    private boolean ListasVazias() {
-        return filaAltaP.isEmpty() && filaMediaP.isEmpty() &&
-                filaBaixaP.isEmpty() && filaBloqueados.isEmpty();
-    }
-
+/** toString */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -69,14 +64,19 @@ public class Scheduler {
         sb.append("Lista de bloqueados:").append(filaBloqueados.toString());
         return sb.toString();
     }
-
+/** metodo que retorna um booleano para listas vazias */
+    private boolean ListasVazias() {
+        return filaAltaP.isEmpty() && filaMediaP.isEmpty() &&
+                filaBaixaP.isEmpty() && filaBloqueados.isEmpty();
+    }
+/** metodo utilizado para salvar os processos dentro de cada fila circular */
     public String exportarTudo() {
         return filaAltaP.exportar()
                 + filaMediaP.exportar()
                 + filaBaixaP.exportar()
                 + filaBloqueados.exportar();
     }
-
+/** metodo para adicionar um processo a sua respectiva lista de prioridade */
     public void addProcesso(Processo processo) {
         switch (processo.getPrioridade()) {
             case 1:
@@ -92,7 +92,7 @@ public class Scheduler {
                 throw new IndexOutOfBoundsException("Crie um processo com prioridade permitida");
         }
     }
-
+    /** metodo que executa apenas 1 ciclo a partir da junção de outros metodos da mesma classe */
     public void execCiclo() {
         System.out.println("=== Iniciando Ciclo... ===");
         desbloquearProcesso();
@@ -105,7 +105,7 @@ public class Scheduler {
 
         System.out.println(this.toString());
     }
-
+/** metodo que finaliza todos os ciclos possíveis para processos em ciclo */
     public void execTodosCiclos() {
         int ciclo = 1;
         if (ListasVazias()) {
@@ -120,7 +120,7 @@ public class Scheduler {
         }
         System.out.println("\nTodos ciclos foram concluídos");
     }
-
+/** metodo que desbloqueia um processo, retirando da fila de bloquados */
     private void desbloquearProcesso() {
         if (!filaBloqueados.isEmpty()) {
             Processo desbloqueado = filaBloqueados.removeFirst();
@@ -137,7 +137,7 @@ public class Scheduler {
             }
         }
     }
-
+/** metodo que analisa o proximo processo a ser executado no ciclo */
     private Processo selecionarProcesso() {
         Processo atual = null;
 
@@ -170,7 +170,7 @@ public class Scheduler {
         }
         return atual;
     }
-
+ /** metodo que executa o processo selecionado anteriormente */
     private void execProcesso(Processo atual) {
         if ("DISCO".equalsIgnoreCase(atual.getRecurso_necessario())) {
             System.out.println("Processo " + atual.getNome() + " foi bloqueado aguardando DISCO");
@@ -187,7 +187,7 @@ public class Scheduler {
             addProcesso(atual);
         }
     }
-
+/** metodo que retorna o processo em primeira preferência */
     public Processo verProximo() {
         if (!filaAltaP.isEmpty()) return filaAltaP.peek();
         if (!filaMediaP.isEmpty()) return filaMediaP.peek();
@@ -195,7 +195,7 @@ public class Scheduler {
         if (!filaBloqueados.isEmpty()) return filaBloqueados.peek();
         return null;
     }
-
+/** metodo que retorna um processo a partir da busca pelo seu id */
     public Processo buscarProcesso(int id) {
         Processo processo = filaAltaP.buscar(id);
         if (processo != null) {
@@ -215,7 +215,7 @@ public class Scheduler {
         }
         return null;
     }
-
+/** metodo que retorna o id de um processo a ser buscado */
     public int buscarId(int id) {
         Processo processo = filaAltaP.buscar(id);
         if (processo != null) {
@@ -235,7 +235,7 @@ public class Scheduler {
         }
         return 0;
     }
-
+/** metodo que remove um processo a partir da busca pelo seu id */
     public boolean removerProcesso(int id) {
         Processo p = buscarProcesso(id);
         if (p != null) {

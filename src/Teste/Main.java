@@ -8,6 +8,7 @@ public class Main {
         Scheduler scheduler = RepositorioProcessos.carregar();
         Scanner sc = new Scanner(System.in);
         int opcao;
+        /** menu de opções */
         do {
             System.out.println();
             System.out.println("===|=========================================|===");
