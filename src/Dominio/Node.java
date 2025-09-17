@@ -1,6 +1,6 @@
 package Dominio;
 
-public class Node {
+public class Node {//classe Node
     private Processo processo;
     private Node next;
 

@@ -54,7 +54,7 @@ Um IDE Java (por exemplo, IntelliJ IDEA, Eclipse) ou um ambiente de linha de com
 
 Instalação
 
-Clone o repositório:git clone https://github.com/seuusuario/escalonador-de-processos.git
+Clone o repositório:git clone https://github.com/lcs-rg/escalonador-de-processos.git
 
 
 Navegue até o diretório do projeto:cd escalonador-de-processos
