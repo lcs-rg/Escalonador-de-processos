@@ -1,9 +1,0 @@
-1. Justificativa de Design: Por que a estrutura de dados utilizada é uma
-estrutura eficiente para implementar o comportamento do escalonador?
-2. Analise a complexidade (Big-O) das operações na sua implementação.
-3. Análise da Anti-Inanição: Explique como sua lógica garante a justiça no
-escalonamento e qual o risco se essa regra não existisse.
-4. Análise do Bloqueio: Descreva o ciclo de vida de um processo que precisa do
-"DISCO", detalhando sua jornada pelas diferentes listas.
-5. Ponto Fraco: Qual é o principal gargalo de performance no seu scheduler?
-Proponha uma melhoria teórica para ele.

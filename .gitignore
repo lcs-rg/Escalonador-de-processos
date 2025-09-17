@@ -4,8 +4,6 @@ out/
 !**/src/test/**/out/
 
 # IntelliJ
-/.idea/
-/*.iml
 
 # Git
 /.gitattributes
